@@ -40,24 +40,18 @@ public class Helicopter : MonoBehaviour
     {
         if (isFly)
         {
-            float inputX = Input.GetAxis("Vertical"); // аб©Л
-            float inputZ = Input.GetAxis("Horizontal"); // ╬у╣з
+            float inputX = Input.GetAxis("Horizontal");
+            float inputZ = Input.GetAxis("Vertical");
 
-            helicopter.transform.position += moveSpeed * new Vector3(inputZ, 0f, inputX) * Time.deltaTime;
+            helicopter.transform.position += moveSpeed * new Vector3(inputX, 0f, inputZ) * Time.deltaTime;
 
-            if (inputX < 0)
+            if (inputZ < 0 && slimeRotateX < 20)
             {
-                if (slimeRotateX < 20)
-                {
-                    slimeRotateX += 20 * Time.deltaTime;
-                }
+                slimeRotateX += 20 * Time.deltaTime;
             }
-            else if (inputX > 0)
+            else if (inputZ > 0 && slimeRotateX > -20)
             {
-                if (slimeRotateX > -20)
-                {
-                    slimeRotateX -= 20 * Time.deltaTime;
-                }
+                slimeRotateX -= 20 * Time.deltaTime;
             }
             else
             {
@@ -75,19 +69,13 @@ public class Helicopter : MonoBehaviour
                 }
             }
 
-            if (inputZ > 0)
+            if (inputX > 0 && slimeRotateZ < 20)
             {
-                if (slimeRotateZ < 20)
-                {
-                    slimeRotateZ += 20 * Time.deltaTime;
-                }
+                slimeRotateZ += 20 * Time.deltaTime;
             }
-            else if (inputZ < 0)
+            else if (inputX < 0 && slimeRotateZ > -20)
             {
-                if (slimeRotateZ > -20)
-                {
-                    slimeRotateZ -= 20 * Time.deltaTime;
-                }
+                slimeRotateZ -= 20 * Time.deltaTime;
             }
             else
             {
