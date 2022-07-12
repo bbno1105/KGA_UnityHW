@@ -105,8 +105,6 @@ public class Helicopter : MonoBehaviour
                 }
             }
 
-            UnityEngine.Debug.Log("ÀÎÇ² : " + inputX + " , " + inputZ);
-            UnityEngine.Debug.Log("·ÎÅ× : " + slimeRotateX + " , " + slimeRotateZ);
             _Slime.transform.rotation = Quaternion.Euler(slimeRotateX, -180f, slimeRotateZ);
         }
     }
