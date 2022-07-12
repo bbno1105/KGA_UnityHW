@@ -5,19 +5,24 @@ using UnityEngine;
 
 public class Helicopter : MonoBehaviour
 {
-    bool isFly = false;
+    public Transform startPos;
+
+    bool _isFly = false;
 
     public GameObject helicopter;
     public float moveSpeed;
-    bool isUp = false;
+    bool _isUp = false;
 
     public GameObject slimeCopter;
-    float slimeRotateX = 0;
-    float slimeRotateZ = 0;
+    public float slimeMaxRotate = 20f;
+    public float slimeReturnRotate = 20f;
+    float _slimeRotateX = 0;
+    float _slimeRotateZ = 0;
 
     public GameObject wings;
     public float wingSpeedAddForce;
-    float wingSpeed;
+    public float wingMaxSpeed = 10;
+    float _wingSpeed = 0;
 
     void Update()
     {
@@ -29,71 +34,71 @@ public class Helicopter : MonoBehaviour
 
     void UpHelicopter()
     {
-        if (wingSpeed > 5 && isUp)
+        if (_wingSpeed > 5 && _isUp)
         {
-            isFly = true;
-            helicopter.GetComponent<Rigidbody>().AddForce(0, wingSpeed, 0);
+            _isFly = true;
+            helicopter.GetComponent<Rigidbody>().AddForce(0, _wingSpeed, 0);
         }
     }
 
     void MoveHelicopyter()
     {
-        if (isFly)
+        if (_isFly)
         {
             float inputX = Input.GetAxis("Horizontal");
             float inputZ = Input.GetAxis("Vertical");
 
             helicopter.transform.position += moveSpeed * new Vector3(inputX, 0f, inputZ) * Time.deltaTime;
 
-            if (inputZ < 0 && slimeRotateX < 20)
+            if (inputZ < 0 && _slimeRotateX < slimeMaxRotate)
             {
-                slimeRotateX += 20 * Time.deltaTime;
+                _slimeRotateX += slimeReturnRotate * Time.deltaTime;
             }
-            else if (inputZ > 0 && slimeRotateX > -20)
+            else if (inputZ > 0 && _slimeRotateX > -slimeMaxRotate)
             {
-                slimeRotateX -= 20 * Time.deltaTime;
-            }
-            else
-            {
-                if (slimeRotateX < -1)
-                {
-                    slimeRotateX += 20 * Time.deltaTime;
-                }
-                else if (slimeRotateX > 1)
-                {
-                    slimeRotateX -= 20 * Time.deltaTime;
-                }
-                else
-                {
-                    slimeRotateX = 0;
-                }
-            }
-
-            if (inputX > 0 && slimeRotateZ < 20)
-            {
-                slimeRotateZ += 20 * Time.deltaTime;
-            }
-            else if (inputX < 0 && slimeRotateZ > -20)
-            {
-                slimeRotateZ -= 20 * Time.deltaTime;
+                _slimeRotateX -= slimeReturnRotate * Time.deltaTime;
             }
             else
             {
-                if (slimeRotateZ < -1)
+                if (_slimeRotateX < -1)
                 {
-                    slimeRotateZ += 20 * Time.deltaTime;
+                    _slimeRotateX += slimeReturnRotate * Time.deltaTime;
                 }
-                else if (slimeRotateZ > 1)
+                else if (_slimeRotateX > 1)
                 {
-                    slimeRotateZ -= 20 * Time.deltaTime;
+                    _slimeRotateX -= slimeReturnRotate * Time.deltaTime;
                 }
                 else
                 {
-                    slimeRotateZ = 0;
+                    _slimeRotateX = 0;
                 }
             }
 
-            slimeCopter.transform.rotation = Quaternion.Euler(slimeRotateX, -180f, slimeRotateZ);
+            if (inputX > 0 && _slimeRotateZ < slimeMaxRotate)
+            {
+                _slimeRotateZ += slimeReturnRotate * Time.deltaTime;
+            }
+            else if (inputX < 0 && _slimeRotateZ > -slimeMaxRotate)
+            {
+                _slimeRotateZ -= slimeReturnRotate * Time.deltaTime;
+            }
+            else
+            {
+                if (_slimeRotateZ < -1)
+                {
+                    _slimeRotateZ += slimeReturnRotate * Time.deltaTime;
+                }
+                else if (_slimeRotateZ > 1)
+                {
+                    _slimeRotateZ -= slimeReturnRotate * Time.deltaTime;
+                }
+                else
+                {
+                    _slimeRotateZ = 0;
+                }
+            }
+
+            slimeCopter.transform.rotation = Quaternion.Euler(_slimeRotateX, -180f, _slimeRotateZ);
         }
     }
 
@@ -101,37 +106,37 @@ public class Helicopter : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.Space))
         {
-            isUp = true;
+            _isUp = true;
 
-            if (wingSpeed < 10f)
+            if (_wingSpeed < wingMaxSpeed)
             {
-                wingSpeed += wingSpeedAddForce * Time.deltaTime;
+                _wingSpeed += wingSpeedAddForce * Time.deltaTime;
             }
         }
         else
         {
-            isUp = false;
+            _isUp = false;
 
-            if (wingSpeed > 0)
+            if (_wingSpeed > 0)
             {
-                wingSpeed -= 1.5f * wingSpeedAddForce * Time.deltaTime;
+                _wingSpeed -= 1.5f * wingSpeedAddForce * Time.deltaTime;
 
             }
-            else if (wingSpeed <= 0)
+            else if (_wingSpeed <= 0)
             {
-                wingSpeed = 0;
+                _wingSpeed = 0;
             }
         }
-        wings.transform.Rotate(0, wingSpeed, 0);
+        wings.transform.Rotate(0, _wingSpeed, 0);
     }
 
     void Respawn()
     {
         if (helicopter.transform.position.y <= 1 || Input.GetKeyDown(KeyCode.R))
         {
-            helicopter.transform.position = new Vector3(0, 28.81f, 0);
+            helicopter.transform.position = startPos.position;
             slimeCopter.transform.rotation = Quaternion.Euler(0, -180f, 0);
-            isFly = false;
+            _isFly = false;
         }
     }
 }
