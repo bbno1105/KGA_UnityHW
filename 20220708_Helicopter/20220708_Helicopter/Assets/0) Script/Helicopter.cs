@@ -7,15 +7,15 @@ public class Helicopter : MonoBehaviour
 {
     bool isFly = false;
 
-    public GameObject _Helicopter;
+    public GameObject helicopter;
     public float moveSpeed;
     bool isUp = false;
 
-    public GameObject _Slime;
+    public GameObject slimeCopter;
     float slimeRotateX = 0;
     float slimeRotateZ = 0;
 
-    public GameObject _Wings;
+    public GameObject wings;
     public float wingSpeedAddForce;
     float wingSpeed;
 
@@ -32,7 +32,7 @@ public class Helicopter : MonoBehaviour
         if (wingSpeed > 5 && isUp)
         {
             isFly = true;
-            _Helicopter.GetComponent<Rigidbody>().AddForce(0, wingSpeed, 0);
+            helicopter.GetComponent<Rigidbody>().AddForce(0, wingSpeed, 0);
         }
     }
 
@@ -43,7 +43,7 @@ public class Helicopter : MonoBehaviour
             float inputX = Input.GetAxis("Vertical"); // аб©Л
             float inputZ = Input.GetAxis("Horizontal"); // ╬у╣з
 
-            _Helicopter.transform.position += moveSpeed * new Vector3(inputZ, 0f, inputX) * Time.deltaTime;
+            helicopter.transform.position += moveSpeed * new Vector3(inputZ, 0f, inputX) * Time.deltaTime;
 
             if (inputX < 0)
             {
@@ -105,7 +105,7 @@ public class Helicopter : MonoBehaviour
                 }
             }
 
-            _Slime.transform.rotation = Quaternion.Euler(slimeRotateX, -180f, slimeRotateZ);
+            slimeCopter.transform.rotation = Quaternion.Euler(slimeRotateX, -180f, slimeRotateZ);
         }
     }
 
@@ -134,15 +134,15 @@ public class Helicopter : MonoBehaviour
                 wingSpeed = 0;
             }
         }
-        _Wings.transform.Rotate(0, wingSpeed, 0);
+        wings.transform.Rotate(0, wingSpeed, 0);
     }
 
     void Respawn()
     {
-        if (_Helicopter.transform.position.y <= 1 || Input.GetKeyDown(KeyCode.R))
+        if (helicopter.transform.position.y <= 1 || Input.GetKeyDown(KeyCode.R))
         {
-            _Helicopter.transform.position = new Vector3(0, 28.81f, 0);
-            _Slime.transform.rotation = Quaternion.Euler(0, -180f, 0);
+            helicopter.transform.position = new Vector3(0, 28.81f, 0);
+            slimeCopter.transform.rotation = Quaternion.Euler(0, -180f, 0);
             isFly = false;
         }
     }

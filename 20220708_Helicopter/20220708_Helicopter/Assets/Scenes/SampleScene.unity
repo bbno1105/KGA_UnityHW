@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641258, b: 0.5748172, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1242,7 +1242,7 @@ GameObject:
   m_Component:
   - component: {fileID: 560762287}
   m_Layer: 0
-  m_Name: Helicopter
+  m_Name: HelicopterModel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2236,7 +2236,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f231c4fb786f3946a6b90b886c48677, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_SendPointerHoverToParent: 1
   m_HorizontalAxis: Horizontal
   m_VerticalAxis: Vertical
   m_SubmitButton: Submit
@@ -2393,10 +2392,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83a91ed46a9f5ff49b872b24870e79e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _Helicopter: {fileID: 1917335120}
+  helicopter: {fileID: 0}
   moveSpeed: 20
-  _Slime: {fileID: 3580662878340973184}
-  _Wings: {fileID: 2069676446}
+  slimeCopter: {fileID: 0}
+  wings: {fileID: 0}
   wingSpeedAddForce: 3
 --- !u!4 &1372635116
 Transform:
@@ -3153,7 +3152,7 @@ GameObject:
   - component: {fileID: 1917335122}
   - component: {fileID: 1917335121}
   m_Layer: 0
-  m_Name: SlimeCopter
+  m_Name: Helicopter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4354,7 +4353,7 @@ GameObject:
   - component: {fileID: 3580662878340973186}
   - component: {fileID: 3580662878340973188}
   m_Layer: 0
-  m_Name: Slime
+  m_Name: SlimeCopter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
