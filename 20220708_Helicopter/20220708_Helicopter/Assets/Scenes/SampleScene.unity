@@ -2392,10 +2392,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83a91ed46a9f5ff49b872b24870e79e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  helicopter: {fileID: 0}
+  helicopter: {fileID: 1917335120}
   moveSpeed: 20
-  slimeCopter: {fileID: 0}
-  wings: {fileID: 0}
+  slimeCopter: {fileID: 3580662878340973184}
+  wings: {fileID: 2069676446}
   wingSpeedAddForce: 3
 --- !u!4 &1372635116
 Transform:
