@@ -10,6 +10,7 @@ public class Helicopter : MonoBehaviour
     bool _isFly = false;
 
     public GameObject helicopter;
+    Rigidbody _helicopterRigid;
     public float moveSpeed;
     bool _isUp = false;
 
@@ -24,6 +25,12 @@ public class Helicopter : MonoBehaviour
     public float wingMaxSpeed = 10;
     float _wingSpeed = 0;
 
+
+    void Start()
+    {
+        _helicopterRigid = GetComponent<Rigidbody>();
+    }
+
     void Update()
     {
         RotateWing();
@@ -37,7 +44,7 @@ public class Helicopter : MonoBehaviour
         if (_wingSpeed > 5 && _isUp)
         {
             _isFly = true;
-            helicopter.GetComponent<Rigidbody>().AddForce(0, _wingSpeed, 0);
+            _helicopterRigid.AddForce(0, _wingSpeed, 0);
         }
     }
 
