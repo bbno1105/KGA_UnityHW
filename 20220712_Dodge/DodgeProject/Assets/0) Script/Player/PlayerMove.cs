@@ -17,16 +17,23 @@ public class PlayerMove : MonoBehaviour
         _animator = _playerChar.GetComponent<Animator>();
     }
 
+    [SerializeField]
+    Vector3 lookForward;
+    [SerializeField]
+    Vector3 lookRight;
+    [SerializeField]
+    Vector3 moveDir;
+
     public void Move()
     {
         if (playerInfo.isMove)
         {
             _animator.SetBool("isMove", true);
 
-            Vector3 lookForward = new Vector3(cameraArm.transform.forward.x, 0f, cameraArm.transform.forward.z).normalized;
-            Vector3 lookRight = new Vector3(cameraArm.transform.right.x, 0f, cameraArm.transform.right.z).normalized;
+            lookForward = new Vector3(cameraArm.transform.forward.x, 0f, cameraArm.transform.forward.z).normalized;
+            lookRight = new Vector3(cameraArm.transform.right.x, 0f, cameraArm.transform.right.z).normalized;
 
-            Vector3 moveDir = lookForward * playerInfo.inputKey.y + lookRight * playerInfo.inputKey.x;
+            moveDir = lookForward * playerInfo.inputKey.y + lookRight * playerInfo.inputKey.x;
 
             _playerChar.transform.forward = moveDir;
             this.transform.position += moveDir * Time.deltaTime * playerInfo.moveSpeed;

@@ -8,7 +8,6 @@ public class AttackArea : MonoBehaviour
 
     void OnTriggerExit(Collider other)
     {
-        UnityEngine.Debug.Log(other.gameObject.tag);
         if (other.gameObject.tag == "Broom")
         {
             UnityEngine.Debug.Log("들어왔다");

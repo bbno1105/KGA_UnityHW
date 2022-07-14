@@ -7,11 +7,20 @@ public class Enemy : MonoBehaviour
     public GameManager gameManager;
 
     public GameObject bulletPrefabs;
-    public GameObject player;
-    public Animator animator;
+    public Transform target;
+
+    [SerializeField]
+    GameObject _enemyChar;
+    Animator _animator;
     float _spawnTime = 0;
     float _rand = 0;
+
     public bool isAttack = false;
+
+    void Start()
+    {
+        _animator = this.transform.GetChild(0).GetComponent<Animator>();
+    }
 
     void Update()
     {
@@ -20,20 +29,19 @@ public class Enemy : MonoBehaviour
         {
             Attack();
         }
+
     }
-
-
 
     void Attack()
     {
-        this.transform.LookAt(player.transform);
+        _enemyChar.transform.LookAt(target);
 
         if (_spawnTime >= _rand)
         {
-            animator.SetTrigger("isAttack");
+            _animator.SetTrigger("isAttack");
             _rand = Random.Range(0f, 2.5f);
             GameObject bullets = Instantiate(bulletPrefabs, this.transform.position, this.transform.rotation);
-            Vector3 bulletLookPos = new Vector3(player.transform.position.x, this.transform.position.y + 0.5f, player.transform.position.z);
+            Vector3 bulletLookPos = new Vector3(target.transform.position.x, this.transform.position.y + 0.5f, target.transform.position.z);
             bullets.transform.LookAt(bulletLookPos);
             _spawnTime = 0;
         }
