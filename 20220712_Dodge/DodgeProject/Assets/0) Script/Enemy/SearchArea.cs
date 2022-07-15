@@ -8,13 +8,19 @@ public class SearchArea : MonoBehaviour
 
     Enemy _enemy;
 
-    bool isTrigger = false;
+    bool isTriggerOn = false;
 
-    private void Update()
+    void Start()
     {
-        if (isTrigger)
+        _enemy = enemyObj.GetComponent<Enemy>();
+    }
+
+    void Update()
+    {
+        if (isTriggerOn && FindAttackRangeArea())
         {
-            LookArea();
+            _enemy.isAttack = true;
+            
         }
         else
         {
@@ -22,16 +28,11 @@ public class SearchArea : MonoBehaviour
         }
     }
 
-    void Start()
-    {
-        _enemy = enemyObj.GetComponent<Enemy>();
-    }
-
     void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Player")
         {
-            isTrigger = true;
+            isTriggerOn = true;
         }
     }
     
@@ -39,19 +40,22 @@ public class SearchArea : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            isTrigger = false;
+            isTriggerOn = false;
         }
     }
 
-    void LookArea()
+    bool FindAttackRangeArea()
     {
         Vector3 directionVector = (_enemy.target.position - enemyObj.transform.position).normalized;
         float dir = Vector3.Dot(enemyObj.transform.forward, directionVector);
         Vector3 normalVector = Vector3.Cross(enemyObj.transform.forward, directionVector);
 
+        UnityEngine.Debug.Log(Mathf.Cos(Mathf.Deg2Rad * 30));
+
         if (dir <= Mathf.Cos(Mathf.Deg2Rad * 30) && dir >= 0 && normalVector.y < 0)
         {
-            _enemy.isAttack = true;
+            return true;
         }
+        return false;
     }
 }

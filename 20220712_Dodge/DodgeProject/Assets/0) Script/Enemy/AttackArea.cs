@@ -10,8 +10,7 @@ public class AttackArea : MonoBehaviour
     {
         if (other.gameObject.tag == "Broom")
         {
-            UnityEngine.Debug.Log("들어왔다");
-            enemyObj.GetComponent<Rigidbody>().AddForce(0, 1000, 0);
+            enemyObj.GetComponent<Rigidbody>().AddForce(0, 1000, 0); // 날아가라~
         }
     }
 }
