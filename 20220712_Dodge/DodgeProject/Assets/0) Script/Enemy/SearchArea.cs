@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 
 public class SearchArea : MonoBehaviour
 {
@@ -10,9 +11,12 @@ public class SearchArea : MonoBehaviour
 
     bool isTriggerOn = false;
 
+    Vector3 _arcStartVector;
+
     void Start()
     {
         _enemy = enemyObj.GetComponent<Enemy>();
+        _arcStartVector = new Vector3(Mathf.Cos(-120f * Mathf.Deg2Rad), 0f, Mathf.Sin(-120f * Mathf.Deg2Rad));
     }
 
     void Update()
@@ -20,11 +24,13 @@ public class SearchArea : MonoBehaviour
         if (isTriggerOn && FindAttackRangeArea())
         {
             _enemy.isAttack = true;
-            
+            isGizmosOn = true;
+
         }
         else
         {
             _enemy.isAttack = false;
+            isGizmosOn = false;
         }
     }
 
@@ -57,5 +63,16 @@ public class SearchArea : MonoBehaviour
             return true;
         }
         return false;
+    }
+
+    bool isGizmosOn = false;
+    Color red = new Color( 1f, 0f, 0f, 0.1f );
+    Color green = new Color( 0f, 1f, 0f, 0.1f );
+
+    void OnDrawGizmos()
+    {
+        Handles.color = isGizmosOn ? red : green;
+        Handles.DrawSolidArc(transform.position, transform.up, -enemyObj.transform.right, 60f, 10f);
+        //Handles.DrawSolidArc(transform.position, transform.up, _arcStartVector, 30f, 20f);
     }
 }
